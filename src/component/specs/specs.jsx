@@ -26,6 +26,7 @@ export default function specs() {
       // id: new Date().getTime(),
     });
   };
+
   const editSpecs = (id) => {
     dispatch({
       type: EDIT_SPECS,
