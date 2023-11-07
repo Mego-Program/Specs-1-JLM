@@ -1,7 +1,17 @@
-import { useReducer } from "react";
-import { INITIAL_STATE_SPECS, specsReducr } from "../../context/specs/specsReducer";
-import { ADD_SPECS, DELTE_SPECS, EDIT_SPECS } from "../../context/specs/specsTypes";
+import { useReducer, useEffect } from "react";
+import { INITIAL_STATE_SPECS, specsReducer } from "../../context/specs/specsReducer";
+import {
+  DELETE_SPECS,
+  DUNE_SPECS,
+  EDIT_SPECS,
+  LOAD_SPECS_FROM_LOCAL_STORAGE,
+} from "../../context/specs/specsTypes";
 import { NavLink } from "react-router-dom";
+import { Box, Stack } from "@mui/material";
+// import Typography from "@mui/material/Typography";
+import { Add } from "@mui/icons-material/";
+import { SpecsGrid } from "./SpecsGrid";
+import { getSpecs } from "../../services/specs.services";
 
 function getTodayDate() {
   const today = new Date();
@@ -14,75 +24,98 @@ function getTodayDate() {
   return formattedDate;
 }
 
-export default function specs() {
-  const [state, dispatch] = useReducer(specsReducr, INITIAL_STATE_SPECS);
+export default function Specs() {
+  const [state, dispatch] = useReducer(specsReducer, INITIAL_STATE_SPECS);
 
-  const addSpecs = () => {
-    dispatch({
-      type: ADD_SPECS,
-      payload: specs[specs.length - 1],
-      // date: getTodayDate(),
-      // title: new Date().getTime(),
-      // id: new Date().getTime(),
-    });
-  };
+  useEffect(() => {
+    const storageData = getSpecs();
+
+    if (storageData) {
+      dispatch({ type: LOAD_SPECS_FROM_LOCAL_STORAGE, payload: storageData });
+    }
+  }, []);
+
   const editSpecs = (id) => {
     dispatch({
       type: EDIT_SPECS,
       payload: {
-        date: datespecs(),
+        date: getTodayDate(),
         title: new Date().getTime(),
         id,
       },
     });
   };
-  const delteSpecs = (id) => {
+
+  const deleteSpecs = (id) => {
     dispatch({
-      type: DELTE_SPECS,
+      type: DELETE_SPECS,
       payload: {
         id,
       },
     });
   };
-  // const datespecs = (id) => {
-  //   dispatch({
-  //     type: DATE_SPECS,
-  //     payload: {
-  //       date: getTodayDate(),
-  //       id,
-  //     },
-  //   });
-  // };
+  const editStatus = (specs) => {
+    dispatch({
+      type: DUNE_SPECS,
+      payload: {
+        ...specs,
+        status: !specs.status,
+      },
+    });
+  };
 
   return (
-    <div className="bg-slate-800 h-screen">
-      <NavLink
-        to="/add-new-specs"
-        className="w-[278px] h-[55px] bg-amber-400 rounded-[5px] border-[5px] flex flex-row"
-      >
-        <div className="text-slate-900 text-lg font-normal font-['Poppins'] capitalize leading-[18px] basis-2/3">
-          add a new spec
-        </div>
-        <div className="w-[81px] h-[49px] bg-slate-900 rounded-[5px] basis-1/3">
-          <div className="text-amber-400 text-[33px] font-normal font-['Poppins'] capitalize leading-[33px]">
-            +
-          </div>
-        </div>
-      </NavLink>
-      <div className="text-white-500">
-        <button onClick={addSpecs}>add</button>
-        {state.specs.map((s, i) => (
-          <div key={i}>
-            {s.date}
-            <div className="w-[1168px] h-[143px] bg-slate-900 rounded-[9px] border border-amber-400">
-              {s.title}
+    <Stack
+      sx={{
+        width: "100%",
+        minHeight: "100vh",
+      }}
+    >
+      {/* BTN - ADD A NEW SPECS */}
 
-              <button onClick={() => editSpecs(s.id)}>edit</button>
-              <button onClick={() => delteSpecs(s.id)}>delte</button>
-            </div>
-          </div>
+      <Box
+        component={NavLink}
+        to="/add-new-specs"
+        sx={{
+          margin: "3rem 0 2rem 0",
+          marginLeft: "95px",
+          width: "fit-content",
+          display: "flex",
+          background: "#F6C927",
+          border: "2px solid #F6C927",
+          color: "#21213E",
+          borderRadius: "3px",
+        }}
+      >
+        <Box
+          sx={{
+            padding: "7px 9px",
+            fontWeight: "600",
+            fontSize: "14px",
+          }}
+        >
+          Add A New Specs
+        </Box>
+        <Box
+          sx={{
+            padding: "5px 16px",
+            marginLeft: "4px",
+            background: "#21213E",
+            color: "#F6C927",
+            borderRadius: "3px",
+          }}
+        >
+          <Add />
+        </Box>
+      </Box>
+
+      {/* SPECS - CONTAINER */}
+
+      <Stack direction={"column"}>
+        {state.specs.map((specs, i) => (
+          <SpecsGrid key={i} {...{ deleteSpecs, editSpecs, editStatus }} specs={specs} />
         ))}
-      </div>
-    </div>
+      </Stack>
+    </Stack>
   );
 }
