@@ -2,7 +2,7 @@ import { useReducer, useEffect } from "react";
 import { INITIAL_STATE_SPECS, specsReducer } from "../../context/specs/specsReducer";
 import {
   DELETE_SPECS,
-  DUNE_SPECS,
+  DONE_SPECS,
   EDIT_SPECS,
   LOAD_SPECS_FROM_LOCAL_STORAGE,
 } from "../../context/specs/specsTypes";
@@ -56,7 +56,7 @@ export default function Specs() {
   };
   const editStatus = (specs) => {
     dispatch({
-      type: DUNE_SPECS,
+      type: DONE_SPECS,
       payload: {
         ...specs,
         status: !specs.status,

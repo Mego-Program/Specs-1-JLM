@@ -1,4 +1,4 @@
-import { ADD_SPECS, DELETE_SPECS, EDIT_SPECS, LOAD_SPECS_FROM_LOCAL_STORAGE, DUNE_SPECS } from "./specsTypes";
+import { ADD_SPECS, DELETE_SPECS, EDIT_SPECS, LOAD_SPECS_FROM_LOCAL_STORAGE, DONE_SPECS } from "./specsTypes";
 import { deleteSpecs, addSpecs, editSpecs } from "../../services/specs.services";
 
 export const INITIAL_STATE_SPECS = {
@@ -33,8 +33,8 @@ export const INITIAL_STATE_SPECS = {
     {
       date: "2023.10.30",
       title: "Example Title 5",
-      id: "12348",
-      content: "This is some fake content 4",
+      id: "12349",
+      content: "This is some fake content 5",
     },
     // {
     //   title: "",
@@ -84,13 +84,13 @@ export const specsReducer = (state, { type, payload }) => {
         ...state,
         specs: payload,
       };
-    case DUNE_SPECS: {
+    case DONE_SPECS: {
       console.log(payload);
       const status = state.specs.map((specs) => {
         if (specs.id === payload.id) {
           return payload;
         }
-        return status;
+        return specs;
       });
       return {
         ...state,
