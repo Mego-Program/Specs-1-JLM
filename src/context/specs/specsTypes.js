@@ -1,6 +1,6 @@
 export const ADD_SPECS = "ADD_SPECS";
 export const EDIT_SPECS = "EDIT_SPECS";
 export const DELETE_SPECS = "DELETE_SPECS";
-export const DUNE_SPECS = "DELETE_SPECS";
+export const DONE_SPECS = "DONE_SPECS";
 export const LOAD_SPECS_FROM_LOCAL_STORAGE = "LOAD_SPECS_FROM_LOCAL_STORAGE";
 // export const DATE_SPECS = "DATE_SPECS";
