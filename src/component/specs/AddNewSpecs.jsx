@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 export default function MyForm() {
@@ -70,8 +70,8 @@ export default function MyForm() {
           placeholder="use"
         />
       </div>
-      <NavLink to="/">AddNewSpecs</NavLink>
-      <button>next page</button>
+      <NavLink to="/">Add New Specs </NavLink>
+      <button> next page </button>
     </div>
   );
 }
