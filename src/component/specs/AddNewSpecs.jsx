@@ -1,77 +1,104 @@
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
-export default function MyForm() {
-  const [inputs, setInputs] = useState({
-    input1: "",
-    input2: "",
-    input3: "",
-    input4: "",
-    input5: "",
-    input6: "",
-  });
+const steps = ["1", "2", "3", "4", "5", "6"];
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setInputs({
-      ...inputs,
-      [name]: value,
+export default function HorizontalLinearStepper() {
+  const [activeStep, setActiveStep] = React.useState(0);
+  const [skipped, setSkipped] = React.useState(new Set());
+
+  const isStepOptional = (step) => {
+    return step === 1;
+  };
+
+  const isStepSkipped = (step) => {
+    return skipped.has(step);
+  };
+
+  const handleNext = () => {
+    let newSkipped = skipped;
+    if (isStepSkipped(activeStep)) {
+      newSkipped = new Set(newSkipped.values());
+      newSkipped.delete(activeStep);
+    }
+
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setSkipped(newSkipped);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleSkip = () => {
+    if (!isStepOptional(activeStep)) {
+      // You probably want to guard against something like this,
+      // it should never occur unless someone's actively trying to break something.
+      throw new Error("You can't skip a step that isn't optional.");
+    }
+
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setSkipped((prevSkipped) => {
+      const newSkipped = new Set(prevSkipped.values());
+      newSkipped.add(activeStep);
+      return newSkipped;
     });
   };
 
-  return (
-    <div>
-      <div>
-        <input
-          type="text"
-          name="input1"
-          value={inputs.input1}
-          onChange={handleInputChange}
-          placeholder="כאן התווית הרלוונטית ל-input 1"
-        />
-        <input
-          type="text"
-          name="input2"
-          value={inputs.input2}
-          onChange={handleInputChange}
-          placeholder="כאן התווית הרלוונטית ל-input 2"
-        />
-      </div>
-      <div>
-        <input
-          type="text"
-          name="input3"
-          value={inputs.input3}
-          onChange={handleInputChange}
-          placeholder="כאן התווית הרלוונטית ל-input 3"
-        />
+  const handleReset = () => {
+    setActiveStep(0);
+  };
 
-        <input
-          type="text"
-          name="input4"
-          value={inputs.input4}
-          onChange={handleInputChange}
-          placeholder="כאן התווית הרלוונטית ל-input 4"
-        />
-      </div>
-      <div>
-        <input
-          type="text"
-          name="input5"
-          value={inputs.input5}
-          onChange={handleInputChange}
-          placeholder="כאן התווית הרלוונטית ל-input 5"
-        />
-        <input
-          type="text"
-          name="input6"
-          value={inputs.input6}
-          onChange={handleInputChange}
-          placeholder="use"
-        />
-      </div>
-      <NavLink to="/">Add New Specs </NavLink>
-      <button> next page </button>
-    </div>
+  return (
+    <Box sx={{ width: "100%" }}>
+      <Stepper activeStep={activeStep}>
+        {steps.map((label, index) => {
+          const stepProps = {};
+          const labelProps = {};
+          if (isStepOptional(index)) {
+            labelProps.optional = <Typography variant="caption">Optional</Typography>;
+          }
+          if (isStepSkipped(index)) {
+            stepProps.completed = false;
+          }
+          return (
+            <Step key={label} {...stepProps}>
+              <StepLabel {...labelProps}>{label}</StepLabel>
+            </Step>
+          );
+        })}
+      </Stepper>
+      {activeStep === steps.length ? (
+        <React.Fragment>
+          <Typography sx={{ mt: 2, mb: 1 }}>All steps completed - you&apos;re finished</Typography>
+          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+            <Box sx={{ flex: "1 1 auto" }} />
+            <Button onClick={handleReset}>Reset</Button>
+          </Box>
+        </React.Fragment>
+      ) : (
+        <React.Fragment>
+          <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography>
+          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+            <Button color="inherit" disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }}>
+              Back
+            </Button>
+            <Box sx={{ flex: "1 1 auto" }} />
+            {isStepOptional(activeStep) && (
+              <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
+                Skip
+              </Button>
+            )}
+
+            <Button onClick={handleNext}>{activeStep === steps.length - 1 ? "Finish" : "Next"}</Button>
+          </Box>
+        </React.Fragment>
+      )}
+    </Box>
   );
 }
