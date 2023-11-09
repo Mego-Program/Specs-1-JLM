@@ -53,7 +53,7 @@ export const SpecsBox = ({ editSpecs, specs, editStatus }) => {
           }}
           onClick={() => editStatus(specs)}
         >
-          {specs.status ? "in progress" : "Done"}
+          {specs.status ? "Done" : "in progress"}
         </Box>
       </Box>
       {/* EDIT */}
