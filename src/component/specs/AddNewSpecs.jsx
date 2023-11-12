@@ -8,6 +8,7 @@ import { Step5 } from "./steps/step5";
 import { Step6 } from "./steps/step6";
 import { useNavigate } from "react-router-dom";
 
+const steps = [1,2,3,4,5];
 export default function AddNewSpecs() {
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
