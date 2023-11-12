@@ -42,7 +42,7 @@ export const SpecsBox = ({ editSpecs, specs, editStatus }) => {
           display: "grid",
           placeItems: "center",
           transition: "all 150ms",
-          // color: specs.status ? "#eee" : "#555",   < done
+          color: specs.status ? "#eee" : "#555",
         }}
       >
         <Box
