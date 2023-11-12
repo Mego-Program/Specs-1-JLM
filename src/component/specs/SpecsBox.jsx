@@ -11,9 +11,9 @@ export const SpecsBox = ({ editSpecs, specs, editStatus }) => {
         padding: "10px 15px",
         border: "1px solid #F6C927",
         borderRadius: "7px",
-        background: "#121231",
+        background: specs.status ? "#1a1a1a" : "#121231",
         marginLeft: "7px",
-        color: "#eee",
+        color: specs.status ? "#555" : "#eee",
         fontSize: ".835rem",
       }}
     >
@@ -42,6 +42,7 @@ export const SpecsBox = ({ editSpecs, specs, editStatus }) => {
           display: "grid",
           placeItems: "center",
           transition: "all 150ms",
+          color: specs.status ? "#" : "#eee",
         }}
       >
         <Box
@@ -53,7 +54,8 @@ export const SpecsBox = ({ editSpecs, specs, editStatus }) => {
           }}
           onClick={() => editStatus(specs)}
         >
-          {specs.status ? "Done" : "in progress"}
+          {/* {specs.status ? "Done" : "in progress"} */}
+          {specs.status ? <span style={{ color: "#F6C927" }}>Done</span> : <span>In progress</span>}
         </Box>
       </Box>
       {/* EDIT */}
@@ -70,7 +72,7 @@ export const SpecsBox = ({ editSpecs, specs, editStatus }) => {
           sx={{
             cursor: "pointer",
             ":hover": {
-              color: "#a49b9b",
+              color: specs.status ? "#a49b9b" : "#eee",
             },
           }}
           onClick={editSpecs}
