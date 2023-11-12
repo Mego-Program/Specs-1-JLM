@@ -8,7 +8,7 @@ const ListItem = ({ ind, we_will, select, inputL, removeLine, handelChange, list
       {listKpls.length > 3 && (
         <div
           onClick={() => removeLine(ind)}
-          className="ml-[-22px]  mr-[7px] w-4 flex justify-center items-center cursor-pointer text-[#373761]"
+           className="ml-[-22px]  mr-[7px] w-4 flex justify-center items-center cursor-pointer text-[#373761]"
         >
           <RiDeleteBinLine />
         </div>

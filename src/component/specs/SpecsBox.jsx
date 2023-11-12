@@ -42,7 +42,7 @@ export const SpecsBox = ({ editSpecs, specs, editStatus }) => {
           display: "grid",
           placeItems: "center",
           transition: "all 150ms",
-          color: specs.status ? "#eee" : "#555",
+          color: specs.status ? "#" : "#eee",
         }}
       >
         <Box
@@ -54,7 +54,8 @@ export const SpecsBox = ({ editSpecs, specs, editStatus }) => {
           }}
           onClick={() => editStatus(specs)}
         >
-          {specs.status ? "Done" : "in progress"}
+          {/* {specs.status ? "Done" : "in progress"} */}
+          {specs.status ? <span style={{ color: "#F6C927" }}>Done</span> : <span>In progress</span>}
         </Box>
       </Box>
       {/* EDIT */}
