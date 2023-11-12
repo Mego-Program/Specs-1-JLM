@@ -63,13 +63,7 @@ export function SpecsGrid({ specs, deleteSpecs, editSpecs, editStatus }) {
               color: "#a49b9b",
             },
           }}
-          onClick={() => {
-    const confirmDelete = window.confirm("Are you sure you want to delete?");
-    
-    if (confirmDelete) {
-      deleteSpecs(specs.id);
-    }
-  }}
+          onClick={() => deleteSpecs(specs.id)}
         >
           <Delete
             sx={{

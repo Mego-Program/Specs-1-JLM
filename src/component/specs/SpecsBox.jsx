@@ -11,9 +11,9 @@ export const SpecsBox = ({ editSpecs, specs, editStatus }) => {
         padding: "10px 15px",
         border: "1px solid #F6C927",
         borderRadius: "7px",
-        background: specs.status ? "#1a1a1a" : "#121231",
+        background: "#121231",
         marginLeft: "7px",
-        color: specs.status ? "#555" : "#eee",
+        color: "#eee",
         fontSize: ".835rem",
       }}
     >
@@ -42,7 +42,6 @@ export const SpecsBox = ({ editSpecs, specs, editStatus }) => {
           display: "grid",
           placeItems: "center",
           transition: "all 150ms",
-          color: specs.status ? "#eee" : "#555",
         }}
       >
         <Box
@@ -71,7 +70,7 @@ export const SpecsBox = ({ editSpecs, specs, editStatus }) => {
           sx={{
             cursor: "pointer",
             ":hover": {
-              color: specs.status ? "#a49b9b" : "#eee",
+              color: "#a49b9b",
             },
           }}
           onClick={editSpecs}
