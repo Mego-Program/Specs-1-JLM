@@ -3,12 +3,11 @@ import { useState } from "react";
 import { Step1 } from "./steps/step1";
 import { Step2 } from "./steps/step2";
 import { Step3 } from "./steps/step3";
-import { Step4 } from "./steps/step4";
+import { Step4 } from "./steps/Step4";
 import { Step5 } from "./steps/step5";
 import { Step6 } from "./steps/step6";
 import { useNavigate } from "react-router-dom";
 
-const steps = [1,2,3,4,5];
 export default function AddNewSpecs() {
   const [step, setStep] = useState(1);
   const navigate = useNavigate();

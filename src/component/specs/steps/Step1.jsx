@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Button } from "@mui/material";
+import React from "react";
 
 export function Step1({ setStep, newSpecsData, setNewSpecsData }) {
   // const [editorState, setEditorState] = React.useState(EditorState.createEmpty());
@@ -25,6 +26,7 @@ export function Step1({ setStep, newSpecsData, setNewSpecsData }) {
       /> */}
       <textarea
         onChange={handleUsernameChange}
+        required
         className="bg-[#21213E] text-white min-h-[100px]"
         style={{ resize: "none", overflow: "auto" }}
       />
@@ -37,7 +39,7 @@ export function Step1({ setStep, newSpecsData, setNewSpecsData }) {
         </NavLink>
         <Button
           variant="contained"
-          type={"button"}
+          type={"submit"}
           sx={{
             background: "#21213E",
             fontWeight: "600",
