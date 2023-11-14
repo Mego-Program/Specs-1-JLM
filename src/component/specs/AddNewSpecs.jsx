@@ -1,12 +1,11 @@
 import * as React from "react";
 import { useState } from "react";
-import { Step1 } from "./steps/step1";
+import { Step1 } from "./steps/Step1";
 import { Step2 } from "./steps/step2";
 import { Step3 } from "./steps/step3";
 import { Step4 } from "./steps/Step4";
-import { Step5 } from "./steps/step5";
-import { Step6 } from "./steps/step6";
 import { useNavigate } from "react-router-dom";
+import GetTodayDate from "./steps/date.js";
 
 export default function AddNewSpecs() {
   const [step, setStep] = useState(1);
@@ -55,16 +54,6 @@ export default function AddNewSpecs() {
       title: "Some Text",
       Component: () => <Step4 {...{ setStep, newSpecsData, setNewSpecsData }} />,
     },
-    {
-      ind: 5,
-      title: "Some Text",
-      Component: () => <Step5 {...{ setStep, newSpecsData, setNewSpecsData }} />,
-    },
-    {
-      ind: 6,
-      title: "Some Text",
-      Component: () => <Step6 {...{ setStep, newSpecsData, setNewSpecsData }} />,
-    },
   ];
 
   const handleSubmit = (e) => {
@@ -73,8 +62,31 @@ export default function AddNewSpecs() {
     const getSpecs = localStorage.getItem("specs");
 
     if (getSpecs) {
-      localStorage.setItem("specs", JSON.stringify([...JSON.parse(getSpecs), { id: new Date().getTime() }]));
-    } else localStorage.setItem("specs", JSON.stringify([{ id: new Date().getTime() }]));
+      localStorage.setItem(
+        "specs",
+        JSON.stringify([
+          ...JSON.parse(getSpecs),
+          {
+            id: new Date().getTime(),
+            date: GetTodayDate(),
+            title: newSpecsData.title,
+            content: newSpecsData.content,
+          },
+        ])
+      );
+    } else {
+      localStorage.setItem(
+        "specs",
+        JSON.stringify([
+          {
+            id: new Date().getTime(),
+            date: GetTodayDate(),
+            title: newSpecsData.title,
+            content: newSpecsData.content,
+          },
+        ])
+      );
+    }
 
     navigate("/");
   };
