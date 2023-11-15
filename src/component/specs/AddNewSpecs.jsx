@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useState } from "react";
 import { Step1 } from "./steps/Step1";
-import { Step2 } from "./steps/step2";
-import { Step3 } from "./steps/step3";
+import { Step2 } from "./steps/Step2";
+import { Step3 } from "./steps/Step3";
 import { Step4 } from "./steps/Step4";
 import { useNavigate } from "react-router-dom";
 import GetTodayDate from "./steps/date.js";
