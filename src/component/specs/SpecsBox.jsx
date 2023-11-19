@@ -61,12 +61,13 @@ export const SpecsBox = ({ editSpecs, specs, editStatus }) => {
       {/* EDIT */}
       <Box
         component={NavLink}
-        to="/editor"
+        to={`/editor/${specs.id}`}
         sx={{
           display: "grid",
           placeItems: "center",
           transition: "all 150ms",
         }}
+        S
       >
         <Box
           sx={{

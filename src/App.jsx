@@ -1,9 +1,13 @@
 import { Stack } from "@mui/material";
-import AddNewSpecs from "./component/specs/AddNewSpecs";
+import { Suspense, lazy } from "react";
+// import AddNewSpecs from "./component/specs/AddNewSpecs";
+
 import Specs from "./component/specs/specs";
 import { Nav } from "./component/NavBar/Nav";
 import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
-import Editor from "./component/specs/Editor";
+// import Editor from "./component/specs/Editor";
+const AddNewSpecs = lazy(() => import("./component/specs/AddNewSpecs"));
+const Editor = lazy(() => import("./component/specs/Editor"));
 
 function App() {
   return (
@@ -18,11 +22,13 @@ function App() {
     >
       <Nav />
       <Router>
-        <Routes>
-          <Route path="/" element={<Specs />} />
-          <Route path="/add-new-specs" element={<AddNewSpecs />} />
-          <Route path="/editor" element={<Editor />} />
-        </Routes>
+        <Suspense fallback={<h1>lOADDING...</h1>}>
+          <Routes>
+            <Route path="/" element={<Specs />} />
+            <Route path="/add-new-specs" element={<AddNewSpecs />} />
+            <Route path="/editor/:id" element={<Editor />} />
+          </Routes>
+        </Suspense>
       </Router>
       {/* 
       <Button variant="text" style={{ fontSize: "3rem" }}>
