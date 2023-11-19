@@ -11,7 +11,7 @@ export const Nav = () => {
         padding: "2rem",
       }}
     >
-      Nav
+      
     </Box>
   );
 };
