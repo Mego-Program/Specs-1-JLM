@@ -1,8 +1,24 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import federation from "@originjs/vite-plugin-federation";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
-  // content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  plugins: [
+    react(),
+    federation({
+      name: "SpeceProject",
+      filename: "remoteEntry.js",
+      exposes: {
+        "./SpeceProject": "./src/App",
+      },
+      shared: ["react", "react-dom", "react-router-dom"],
+    }),
+  ],
+  build: {
+    modulePreload: false,
+    target: "esnext",
+    minify: false,
+    cssCodeSplit: false,
+  },
 });

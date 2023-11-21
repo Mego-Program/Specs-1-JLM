@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 export function Step4({ setStep, newSpecsData, setNewSpecsData }) {
   const handleDateChange = (date) => {
-    setNewSpecsData({ ...newSpecsData, date: date });
+    setNewSpecsData({ ...newSpecsData, Deadline: date.format("DD/MM/YYYY") });
   };
 
   return (

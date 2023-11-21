@@ -1,5 +1,6 @@
 import { useState } from "react";
-// import { RiDeleteBinLine } from "react-icons/ri";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 import PropTypes from "prop-types";
 
 const ListItem = ({ ind, we_will, select, inputL, removeLine, handelChange, listKpls }) => (
@@ -8,9 +9,9 @@ const ListItem = ({ ind, we_will, select, inputL, removeLine, handelChange, list
       {listKpls.length > 3 && (
         <div
           onClick={() => removeLine(ind)}
-           className="ml-[-22px]  mr-[7px] w-4 flex justify-center items-center cursor-pointer text-[#373761]"
+          className="ml-[-22px]  mr-[7px] w-4 flex justify-center items-center cursor-pointer text-[#373761]"
         >
-          <RiDeleteBinLine />
+          <DeleteIcon />
         </div>
       )}
       <p className="pr-2">We will</p>
