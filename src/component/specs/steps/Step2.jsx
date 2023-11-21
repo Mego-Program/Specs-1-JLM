@@ -29,7 +29,7 @@ const ListItem = ({ ind, we_will, removeLine, handelChange, listguitarPick }) =>
 );
 
 export function Step2({ setStep, newSpecsData, setNewSpecsData }) {
-  const [listguitarPick, setguitarPick] = useState([newSpecsData.guitarPick]);
+  const [listguitarPick, setguitarPick] = useState(newSpecsData.guitarPick);
 
   const addLine = () => {
     if (listguitarPick.length < 10) {
@@ -39,8 +39,6 @@ export function Step2({ setStep, newSpecsData, setNewSpecsData }) {
         {
           ind: uniq,
           we_will: "",
-          select: "within",
-          inputL: "",
         },
       ]);
     } else {

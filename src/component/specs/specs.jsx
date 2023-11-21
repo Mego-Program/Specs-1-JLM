@@ -72,43 +72,41 @@ export default function Specs() {
       }}
     >
       {/* BTN - ADD A NEW SPECS */}
-
-      <Box
-        component={NavLink}
-        to="/add-new-specs"
-        sx={{
-          margin: "3rem 0 2rem 0",
-          marginLeft: "95px",
-          width: "fit-content",
-          display: "flex",
-          background: "#F6C927",
-          border: "2px solid #F6C927",
-          color: "#21213E",
-          borderRadius: "3px",
-        }}
-      >
+      <NavLink to="add-new-specs">
         <Box
           sx={{
-            padding: "7px 9px",
-            fontWeight: "600",
-            fontSize: "14px",
-          }}
-        >
-          Add A New Specs
-        </Box>
-        <Box
-          sx={{
-            padding: "5px 16px",
-            marginLeft: "4px",
-            background: "#21213E",
-            color: "#F6C927",
+            margin: "3rem 0 2rem 0",
+            marginLeft: "95px",
+            width: "fit-content",
+            display: "flex",
+            background: "#F6C927",
+            border: "2px solid #F6C927",
+            color: "#21213E",
             borderRadius: "3px",
           }}
         >
-          <Add />
+          <Box
+            sx={{
+              padding: "7px 9px",
+              fontWeight: "600",
+              fontSize: "14px",
+            }}
+          >
+            Add A New Specs
+          </Box>
+          <Box
+            sx={{
+              padding: "5px 16px",
+              marginLeft: "4px",
+              background: "#21213E",
+              color: "#F6C927",
+              borderRadius: "3px",
+            }}
+          >
+            <Add />
+          </Box>
         </Box>
-      </Box>
-
+      </NavLink>
       {/* SPECS - CONTAINER */}
 
       <Stack direction={"column"}>
