@@ -1,9 +1,37 @@
-import { Stack } from "@mui/material";
-import AddNewSpecs from "./component/specs/AddNewSpecs";
+// import { Stack } from "@mui/material";
+// import { Suspense, lazy } from "react";
+// import AddNewSpecs from "./component/specs/AddNewSpecs";
+
 import Specs from "./component/specs/specs";
 import { Nav } from "./component/NavBar/Nav";
-import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
+import { RouterProvider, createBrowserRouter, Routes, Route } from "react-router-dom";
 import Editor from "./component/specs/Editor";
+import AddNewSpecs from "./component/specs/AddNewSpecs";
+import { Stack } from "@mui/material";
+// const AddNewSpecs = lazy(() => import("./component/specs/AddNewSpecs"));
+// const Editor = lazy(() => import("./component/specs/Editor"));
+
+export const RouterSpece = [
+  {
+    path: "/",
+    element: <Specs />,
+  },
+  {
+    path: "add-new-specs",
+    element: <AddNewSpecs />,
+  },
+  {
+    path: `editor/:id`,
+    element: <Editor />,
+  },
+];
+// export const RouterSpece = (
+//   <Routes>
+//     <Route path="/" element={<Specs />} />
+//     <Route path="add-new-specs" element={<AddNewSpecs />} />
+//     <Route path="editor/*" element={<Editor />} />
+//   </Routes>
+// );
 
 function App() {
   return (
@@ -17,19 +45,8 @@ function App() {
       }}
     >
       <Nav />
-      <Router>
-        <Routes>
-          <Route path="/" element={<Specs />} />
-          <Route path="/add-new-specs" element={<AddNewSpecs />} />
-          <Route path="/editor" element={<Editor />} />
-        </Routes>
-      </Router>
-      {/* 
-      <Button variant="text" style={{ fontSize: "3rem" }}>
-        Text
-      </Button>
-      <Button variant="contained">Contained</Button>
-      <Button variant="outlined">Outlined</Button> */}
+      {/* <RouterProvider router={createBrowserRouter(RouterSpece)} /> */}
+      <RouterProvider router={createBrowserRouter(RouterSpece)} />
     </Stack>
   );
 }

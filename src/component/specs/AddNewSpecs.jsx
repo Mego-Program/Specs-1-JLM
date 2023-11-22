@@ -5,33 +5,13 @@ import { Step2 } from "./steps/Step2";
 import { Step3 } from "./steps/Step3";
 import { Step4 } from "./steps/Step4";
 import { useNavigate } from "react-router-dom";
-import GetTodayDate from "./steps/date.js";
+import GetTodayDate from "./steps/date";
+import { INITIAL_NEW_SPECS_DATA } from "../../assets/initialData";
 
 export default function AddNewSpecs() {
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
-  const [newSpecsData, setNewSpecsData] = useState({
-    kpls: [
-      {
-        ind: 111111111,
-        we_will: "",
-        select: "within",
-        inputL: "",
-      },
-      {
-        ind: 222222222,
-        we_will: "",
-        select: "within",
-        inputL: "",
-      },
-      {
-        ind: 333333333,
-        we_will: "",
-        select: "within",
-        inputL: "",
-      },
-    ],
-  });
+  const [newSpecsData, setNewSpecsData] = useState(INITIAL_NEW_SPECS_DATA);
 
   const stepData = [
     {
@@ -71,6 +51,8 @@ export default function AddNewSpecs() {
             date: GetTodayDate(),
             title: newSpecsData.title,
             content: newSpecsData.content,
+            guitarPick: newSpecsData.guitarPick,
+            Deadline: newSpecsData.Deadline,
           },
         ])
       );
@@ -83,6 +65,8 @@ export default function AddNewSpecs() {
             date: GetTodayDate(),
             title: newSpecsData.title,
             content: newSpecsData.content,
+            guitarPick: newSpecsData.guitarPick,
+            Deadline: newSpecsData.Deadline,
           },
         ])
       );

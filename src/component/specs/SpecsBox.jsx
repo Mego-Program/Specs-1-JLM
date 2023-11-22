@@ -59,18 +59,15 @@ export const SpecsBox = ({ editSpecs, specs, editStatus }) => {
         </Box>
       </Box>
       {/* EDIT */}
-      <Box
-        component={NavLink}
-        to="/editor"
-        sx={{
-          display: "grid",
-          placeItems: "center",
-          transition: "all 150ms",
-        }}
-      >
+      <NavLink to={`editor/${specs.id}`}>
         <Box
           sx={{
+            display: "grid",
+            placeItems: "center",
+            transition: "all 150ms",
+
             cursor: "pointer",
+            height: "100%",
             ":hover": {
               color: specs.status ? "#a49b9b" : "#eee",
             },
@@ -79,7 +76,7 @@ export const SpecsBox = ({ editSpecs, specs, editStatus }) => {
         >
           Edit
         </Box>
-      </Box>
+      </NavLink>
       {/* USERS */}
       <Box
         sx={{
