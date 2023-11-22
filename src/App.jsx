@@ -11,9 +11,9 @@ import { Stack } from "@mui/material";
 // const AddNewSpecs = lazy(() => import("./component/specs/AddNewSpecs"));
 // const Editor = lazy(() => import("./component/specs/Editor"));
 
-export const RouterSpece = [
+export const RouterSpecs = [
   {
-    path: "/",
+    path: "",
     element: <Specs />,
   },
   {
@@ -25,7 +25,7 @@ export const RouterSpece = [
     element: <Editor />,
   },
 ];
-// export const RouterSpece = (
+// export const RouterSpecs = (
 //   <Routes>
 //     <Route path="/" element={<Specs />} />
 //     <Route path="add-new-specs" element={<AddNewSpecs />} />
@@ -45,8 +45,8 @@ function App() {
       }}
     >
       <Nav />
-      {/* <RouterProvider router={createBrowserRouter(RouterSpece)} /> */}
-      <RouterProvider router={createBrowserRouter(RouterSpece)} />
+      {/* <RouterProvider router={createBrowserRouter(RouterSpecs)} /> */}
+      <RouterProvider router={createBrowserRouter(RouterSpecs)} />
     </Stack>
   );
 }
