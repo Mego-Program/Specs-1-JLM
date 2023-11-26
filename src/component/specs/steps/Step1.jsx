@@ -4,6 +4,18 @@ import { Button } from "@mui/material";
 import React from "react";
 
 export function Step1({ setStep, newSpecsData, setNewSpecsData }) {
+  const isFormValid = () => {
+    if (
+      !newSpecsData.title ||
+      newSpecsData.title.trim() === "" ||
+      !newSpecsData.content ||
+      newSpecsData.content.trim() === ""
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  };
   const handleUsernameChange = (e) => {
     setNewSpecsData({ ...newSpecsData, title: e.target.value });
   };
@@ -41,34 +53,26 @@ export function Step1({ setStep, newSpecsData, setNewSpecsData }) {
         >
           Close
         </NavLink>
+        {isFormValid() && (
+          <Button
+            variant="contained"
+            type={"submit"}
+            sx={{
+              background: "#21213E",
+              fontWeight: "600",
+              paddingX: "1.5rem",
 
-        <Button
-          variant="contained"
-          type={"submit"}
-          sx={{
-            background: "#21213E",
-            fontWeight: "600",
-            paddingX: "1.5rem",
-
-            ":hover": {
-              background: "#1c1d32",
-            },
-          }}
-          onClick={() => {
-            if (
-              !newSpecsData.title ||
-              newSpecsData.title.trim() === "" ||
-              !newSpecsData.content ||
-              newSpecsData.content.trim() === ""
-            ) {
-              // alert("Please fill in the text field");
-            } else {
+              ":hover": {
+                background: "#1c1d32",
+              },
+            }}
+            onClick={() => {
               setStep(2);
-            }
-          }}
-        >
-          Next
-        </Button>
+            }}
+          >
+            Next
+          </Button>
+        )}
       </div>
     </div>
   );

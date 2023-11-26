@@ -3,7 +3,7 @@ import { Stack, Box } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 import PropTypes from "prop-types";
 
-export function SpecsGrid({ specs, deleteSpecs, editSpecs, editStatus }) {
+export function SpecsGrid({ specs, deleteSpecs, editSpecs, editStatus, setOpenEdit }) {
   return (
     <Stack
       sx={{
@@ -45,7 +45,7 @@ export function SpecsGrid({ specs, deleteSpecs, editSpecs, editStatus }) {
       </Box>
 
       {/* DATA */}
-      <SpecsBox {...{ editSpecs, specs, editStatus }} />
+      <SpecsBox {...{ editSpecs, specs, editStatus, setOpenEdit }} />
       {/* DELETE */}
       <Box
         sx={{
@@ -64,12 +64,12 @@ export function SpecsGrid({ specs, deleteSpecs, editSpecs, editStatus }) {
             },
           }}
           onClick={() => {
-    const confirmDelete = window.confirm("Are you sure you want to delete?");
-    
-    if (confirmDelete) {
-      deleteSpecs(specs.id);
-    }
-  }}
+            const confirmDelete = window.confirm("Are you sure you want to delete?");
+
+            if (confirmDelete) {
+              deleteSpecs(specs.id);
+            }
+          }}
         >
           <Delete
             sx={{

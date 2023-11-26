@@ -5,7 +5,7 @@
 import Specs from "./component/specs/specs";
 import { Nav } from "./component/NavBar/Nav";
 import { RouterProvider, createBrowserRouter, Routes, Route } from "react-router-dom";
-import Editor from "./component/specs/Editor";
+// import Editor from "./component/specs/Editor";
 import AddNewSpecs from "./component/specs/AddNewSpecs";
 import { Stack } from "@mui/material";
 // const AddNewSpecs = lazy(() => import("./component/specs/AddNewSpecs"));
@@ -19,10 +19,6 @@ export const RouterSpecs = [
   {
     path: "add-new-specs",
     element: <AddNewSpecs />,
-  },
-  {
-    path: `editor/:id`,
-    element: <Editor />,
   },
 ];
 // export const RouterSpecs = (

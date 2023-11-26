@@ -1,8 +1,7 @@
 import { Stack, Box } from "@mui/material";
 import PropTypes from "prop-types";
-import { NavLink } from "react-router-dom";
 
-export const SpecsBox = ({ editSpecs, specs, editStatus }) => {
+export const SpecsBox = ({ editSpecs, specs, editStatus, setOpenEdit }) => {
   return (
     <Stack
       sx={{
@@ -59,24 +58,25 @@ export const SpecsBox = ({ editSpecs, specs, editStatus }) => {
         </Box>
       </Box>
       {/* EDIT */}
-      <NavLink to={`editor/${specs.id}`}>
-        <Box
-          sx={{
-            display: "grid",
-            placeItems: "center",
-            transition: "all 150ms",
 
-            cursor: "pointer",
-            height: "100%",
-            ":hover": {
-              color: specs.status ? "#a49b9b" : "#eee",
-            },
-          }}
-          onClick={editSpecs}
-        >
-          Edit
-        </Box>
-      </NavLink>
+      <Box
+        sx={{
+          display: "grid",
+          placeItems: "center",
+          transition: "all 150ms",
+
+          cursor: "pointer",
+          height: "100%",
+          ":hover": {
+            color: specs.status ? "#a49b9b" : "#eee",
+          },
+        }}
+        onClick={() => setOpenEdit(specs.id)}
+        // onClick={editSpecs}
+      >
+        Edit
+      </Box>
+
       {/* USERS */}
       <Box
         sx={{

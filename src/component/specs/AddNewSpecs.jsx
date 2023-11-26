@@ -7,10 +7,12 @@ import { Step4 } from "./steps/Step4";
 import { useNavigate } from "react-router-dom";
 import GetTodayDate from "./steps/date";
 import { INITIAL_NEW_SPECS_DATA } from "../../assets/initialData";
-
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 export default function AddNewSpecs() {
   const [step, setStep] = useState(1);
+
   const navigate = useNavigate();
+
   const [newSpecsData, setNewSpecsData] = useState(INITIAL_NEW_SPECS_DATA);
 
   const stepData = [
@@ -26,7 +28,7 @@ export default function AddNewSpecs() {
     },
     {
       ind: 3,
-      title: "KPls",
+      title: "Some Text",
       Component: () => <Step3 {...{ setStep, newSpecsData, setNewSpecsData }} />,
     },
     {
@@ -92,7 +94,17 @@ export default function AddNewSpecs() {
                 ind === step && "w-full border-[1px] border-[#F4C927] border-solid"
               }`}
             >
-              {ind === step ? title : ind}
+              {/* {ind === step ? title : ind} */}
+              {/* {ind === step ? <span style={{ color: "#FFD700" }}>{ind}</span> : ind} */}
+              {ind < step ? (
+                <span style={{ color: "#FFD700" }}>
+                  <CheckCircleIcon />
+                </span>
+              ) : ind === step ? (
+                <span style={{ color: "#FFD700" }}>{ind}</span>
+              ) : (
+                ind
+              )}
             </div>
           </li>
         ))}
