@@ -1,7 +1,7 @@
 import { Stack, Box } from "@mui/material";
 import PropTypes from "prop-types";
 
-export const SpecsBox = ({ editSpecs, specs, editStatus, setOpenEdit }) => {
+export const SpecsBox = ({ specs, editStatus, setOpenEdit }) => {
   return (
     <Stack
       sx={{
@@ -10,9 +10,9 @@ export const SpecsBox = ({ editSpecs, specs, editStatus, setOpenEdit }) => {
         padding: "10px 15px",
         border: "1px solid #F6C927",
         borderRadius: "7px",
-        background: specs.status ? "#1a1a1a" : "#121231",
+        background: specs.Situation === "Done" ? "#1a1a1a" : "#121231",
         marginLeft: "7px",
-        color: specs.status ? "#555" : "#eee",
+        color: specs.Situation === "Done" ? "#555" : "#eee",
         fontSize: ".835rem",
       }}
     >
@@ -41,7 +41,7 @@ export const SpecsBox = ({ editSpecs, specs, editStatus, setOpenEdit }) => {
           display: "grid",
           placeItems: "center",
           transition: "all 150ms",
-          color: specs.status ? "#" : "#eee",
+          color: specs.Situation === "Done" ? "#" : "#eee",
         }}
       >
         <Box
@@ -51,10 +51,13 @@ export const SpecsBox = ({ editSpecs, specs, editStatus, setOpenEdit }) => {
               color: "#a49b9b",
             },
           }}
-          onClick={() => editStatus(specs)}
+          onClick={() => editStatus(specs.id, specs)}
         >
-          {/* {specs.status ? "Done" : "in progress"} */}
-          {specs.status ? <span style={{ color: "#F6C927" }}>Done</span> : <span>In progress</span>}
+          {specs.Situation === "Done" ? (
+            <span style={{ color: "#F6C927" }}>Done</span>
+          ) : (
+            <span>In progress</span>
+          )}
         </Box>
       </Box>
       {/* EDIT */}
@@ -68,11 +71,10 @@ export const SpecsBox = ({ editSpecs, specs, editStatus, setOpenEdit }) => {
           cursor: "pointer",
           height: "100%",
           ":hover": {
-            color: specs.status ? "#a49b9b" : "#eee",
+            color: specs.Situation === "Done" ? "#a49b9b" : "#eee",
           },
         }}
         onClick={() => setOpenEdit(specs.id)}
-        // onClick={editSpecs}
       >
         Edit
       </Box>

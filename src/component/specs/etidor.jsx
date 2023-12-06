@@ -3,8 +3,8 @@ import { Save, Reply } from "@mui/icons-material";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
-import { getSpecs } from "../../services/specs.services";
-import { LOAD_SPECS_FROM_LOCAL_STORAGE } from "../../context/specs/specsTypes";
+import { editSpecs, getSpecs } from "../../services/specs.services";
+import { EDIT_SPECS } from "../../context/specs/specsTypes";
 
 const iconStyle = {
   color: "#eee",
@@ -14,39 +14,39 @@ const iconStyle = {
 };
 
 export default function Editor1({ setOpenEdit, id, dispatch }) {
+  console.log("id: ", id);
   const [load, setLoad] = useState(!1);
   const [specs, setSpecs] = useState([]);
   const [formData, setFormData] = useState(null);
 
   useEffect(() => {
-    const getSpecs = localStorage.getItem("specs");
-    if (getSpecs) {
-      const parsedSpecs = JSON.parse(getSpecs);
-      setSpecs(parsedSpecs);
-      setFormData(parsedSpecs.find((spec) => spec.id + "" === id + ""));
-    }
+    const getTheSpecs = async () => {
+      const specs = await getSpecs(id);
+      if (specs?.length) setFormData(specs[0]);
+    };
+
+    getTheSpecs();
   }, []);
 
   const handleChange = (field, value) => {
     setFormData({ ...formData, [field]: value });
   };
 
-  const handleSaveAll = () => {
+  const handleSaveAll = async () => {
     console.log("All data saved");
     setLoad(!0);
-    const updatedSpecs = specs.map((spec) => (spec.id === formData.id ? formData : spec));
-    setTimeout(() => {
-      localStorage.setItem("specs", JSON.stringify(updatedSpecs));
-      dispatch({ type: LOAD_SPECS_FROM_LOCAL_STORAGE, payload: updatedSpecs });
 
-      setOpenEdit(!1);
-    }, 500);
+    const updeteSpecs = await editSpecs(formData.id, formData);
+
+    dispatch({ type: EDIT_SPECS, payload: formData });
+
+    setOpenEdit(!1);
   };
 
   const closeWindow = () => {
     if (!load) setOpenEdit();
   };
-
+  console.log(formData);
   return (
     <div className="fixed top-0 left-0 w-[100vw] h-[100vh] bg-[#00000026E] z-50">
       <div className="w-[100%] h-[100%] cursor-pointer" onClick={closeWindow}></div>
@@ -61,7 +61,7 @@ export default function Editor1({ setOpenEdit, id, dispatch }) {
                 {Object.keys(formData).map(
                   (field, index) =>
                     // אם השדה הוא id או תאריך או guitarPick, אל תציג אותו במצב עריכה
-                    !["id", "date", "guitarPick"].includes(field) && (
+                    !["id", "date", "guitarPick", "_id", "__v", "selectedRecord"].includes(field) && (
                       <li key={index} className="list-none p-4 relative bg-[#121231] rounded-xl">
                         <h4 className="font-bold pb-2">{field}: </h4>
                         {field === "Deadline" ? (

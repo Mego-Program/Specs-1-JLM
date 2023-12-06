@@ -24,7 +24,7 @@ export function Step1({ setStep, newSpecsData, setNewSpecsData }) {
   };
   return (
     <div className="px-6 py-5 mt-12 min-w-[500px] min-h-[340px] bg-[#121231] rounded-xl flex flex-col justify-between">
-      <div className="text-4xl text-white">step 1</div>
+      <div className="text-4xl text-white">Specs description</div>
       <p className="m-2 mt-3 text-white">Title</p>
       <input
         type="text"

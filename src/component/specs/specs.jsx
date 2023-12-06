@@ -1,17 +1,12 @@
 import { useReducer, useEffect, useState } from "react";
 import { INITIAL_STATE_SPECS, specsReducer } from "../../context/specs/specsReducer";
-import {
-  DELETE_SPECS,
-  DONE_SPECS,
-  EDIT_SPECS,
-  LOAD_SPECS_FROM_LOCAL_STORAGE,
-} from "../../context/specs/specsTypes";
+import { DELETE_SPECS, DONE_SPECS, LOAD_SPECS_FROM_SERVER } from "../../context/specs/specsTypes";
 import { NavLink } from "react-router-dom";
 import { Box, Stack } from "@mui/material";
 // import Typography from "@mui/material/Typography";
 import { Add } from "@mui/icons-material/";
 import { SpecsGrid } from "./SpecsGrid";
-import { getSpecs } from "../../services/specs.services";
+import { deletedSpecs, getAllSpecs, editSpecs } from "../../services/specs.services";
 import Editor1 from "./etidor";
 
 export default function Specs() {
@@ -19,42 +14,48 @@ export default function Specs() {
   const [state, dispatch] = useReducer(specsReducer, INITIAL_STATE_SPECS);
 
   useEffect(() => {
-    const storageData = getSpecs();
+    const getSpecses = async () => {
+      const specsData = await getAllSpecs();
+      console.log(specsData);
+      dispatch({ type: LOAD_SPECS_FROM_SERVER, payload: specsData });
+    };
 
-    if (storageData) {
-      dispatch({ type: LOAD_SPECS_FROM_LOCAL_STORAGE, payload: storageData });
-    }
+    getSpecses();
   }, []);
 
-  const editSpecs = (id) => {
-    dispatch({
-      type: EDIT_SPECS,
-      payload: {
-        date: getTodayDate(),
-        title: new Date().getTime(),
-        id,
-      },
-    });
-  };
+  const deleteSpecs = async (id) => {
+    // Delete from the server
+    const deleteSpecs = await deletedSpecs(id);
+    console.log(deleteSpecs);
 
-  const deleteSpecs = (id) => {
     dispatch({
       type: DELETE_SPECS,
-      payload: {
-        id,
-      },
+      payload: { id },
     });
   };
-  const editStatus = (specs) => {
+  // const editStatus = async (specs) => {
+  //   dispatch({
+  //     type: DONE_SPECS,
+  //     payload: {
+  //       ...specs,
+  //       status:: specs.Situation === "Done" ,
+  //     },
+  //   });
+
+  const editStatus = async (id, specs) => {
+    const updatedSpecs = {
+      ...specs,
+      Situation: specs.Situation !== "Done" ? "Done" : "In progress",
+    };
+    const editStatus = await editSpecs(id, {
+      Situation: specs.Situation !== "Done" ? "Done" : "In progress",
+    });
+
     dispatch({
       type: DONE_SPECS,
-      payload: {
-        ...specs,
-        status: !specs.status,
-      },
+      payload: updatedSpecs,
     });
   };
-
   return (
     <>
       {openEdit && <Editor1 setOpenEdit={setOpenEdit} id={openEdit} dispatch={dispatch} />}
@@ -105,7 +106,7 @@ export default function Specs() {
 
         <Stack direction={"column"}>
           {state.specs.map((specs, i) => (
-            <SpecsGrid key={i} {...{ deleteSpecs, editSpecs, editStatus, setOpenEdit }} specs={specs} />
+            <SpecsGrid key={i} {...{ deleteSpecs, editStatus, setOpenEdit }} specs={specs} />
           ))}
         </Stack>
       </Stack>

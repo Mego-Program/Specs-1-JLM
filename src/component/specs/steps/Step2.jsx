@@ -90,7 +90,7 @@ export function Step2({ setStep, newSpecsData, setNewSpecsData }) {
   return (
     <div className="px-6 py-5 mt-12 min-w-[500px] min-h-[340px] bg-[#121231] rounded-xl flex flex-col justify-between">
       <div className="text-white">
-        <h1 className="pr-4 text-white text-xl">listguitarPick</h1>
+        <h1 className="pr-4 text-white text-4xl">GuitarPick</h1>
         <div className="my-4 flex flex-col">
           <div className="flex flex-col">
             {listguitarPick.map((e, i) => (
