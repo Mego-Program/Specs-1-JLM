@@ -7,10 +7,15 @@ import { Step4 } from "./steps/Step4";
 import { useNavigate } from "react-router-dom";
 import GetTodayDate from "./steps/date";
 import { INITIAL_NEW_SPECS_DATA } from "../../assets/initialData";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { addSpecs } from "../../services/specs.services";
+import { ADD_SPECS } from "../../context/specs/specsTypes";
 
 export default function AddNewSpecs() {
   const [step, setStep] = useState(1);
+
   const navigate = useNavigate();
+
   const [newSpecsData, setNewSpecsData] = useState(INITIAL_NEW_SPECS_DATA);
 
   const stepData = [
@@ -26,7 +31,7 @@ export default function AddNewSpecs() {
     },
     {
       ind: 3,
-      title: "KPls",
+      title: "Some Text",
       Component: () => <Step3 {...{ setStep, newSpecsData, setNewSpecsData }} />,
     },
     {
@@ -36,41 +41,15 @@ export default function AddNewSpecs() {
     },
   ];
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(newSpecsData);
-    const getSpecs = localStorage.getItem("specs");
+    const newSpecs = { Situation: "In progress", date: GetTodayDate(), ...newSpecsData };
+    const createSpecs = await addSpecs(newSpecs);
 
-    if (getSpecs) {
-      localStorage.setItem(
-        "specs",
-        JSON.stringify([
-          ...JSON.parse(getSpecs),
-          {
-            id: new Date().getTime(),
-            date: GetTodayDate(),
-            title: newSpecsData.title,
-            content: newSpecsData.content,
-            guitarPick: newSpecsData.guitarPick,
-            Deadline: newSpecsData.Deadline,
-          },
-        ])
-      );
-    } else {
-      localStorage.setItem(
-        "specs",
-        JSON.stringify([
-          {
-            id: new Date().getTime(),
-            date: GetTodayDate(),
-            title: newSpecsData.title,
-            content: newSpecsData.content,
-            guitarPick: newSpecsData.guitarPick,
-            Deadline: newSpecsData.Deadline,
-          },
-        ])
-      );
-    }
+    console.log(createSpecs);
+    // dispatch({ type: ADD_SPECS, payload: newSpecs });
+
+    console.log(createSpecs);
 
     navigate("/");
   };
@@ -92,10 +71,27 @@ export default function AddNewSpecs() {
                 ind === step && "w-full border-[1px] border-[#F4C927] border-solid"
               }`}
             >
-              {ind === step ? title : ind}
+              {/* {ind === step ? title : ind} */}
+              {/* {ind === step ? <span style={{ color: "#FFD700" }}>{ind}</span> : ind} */}
+              {ind < step ? (
+                <span style={{ color: "#FFD700" }}>
+                  <CheckCircleIcon />
+                </span>
+              ) : ind === step ? (
+                <span style={{ color: "#FFD700" }}>{ind}</span>
+              ) : (
+                ind
+              )}
             </div>
           </li>
-        ))}
+        ))}{" "}
+        {step > 1 && (
+          <>
+            <div className="absolute top-1/2 left-0 w-1/3 h-[2px] bg-[#F4C927]"></div>
+            {step > 2 && <div className="absolute top-1/2 left-1/3 w-1/3 h-[2px] bg-[#F4C927]"></div>}
+            {step > 3 && <div className="absolute top-1/2 left-2/3 w-1/3 h-[2px] bg-[#F4C927]"></div>}
+          </>
+        )}
       </ul>
       <form action="!#" onSubmit={handleSubmit}>
         {stepData[step - 1].Component()}
