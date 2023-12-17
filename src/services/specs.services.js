@@ -1,8 +1,9 @@
 import axios from "axios";
 
+axios.defaults.baseURL = "https://specs-1-jlm-server-tzvis-projects.vercel.app/specs";
 const getAllSpecs = async () => {
   try {
-    const req = await axios.get("http://localhost:4000/specs/");
+    const req = await axios.get("/");
     return req.data.specs;
   } catch (error) {
     console.error(error);
@@ -12,7 +13,7 @@ const getAllSpecs = async () => {
 
 const getSpecs = async (id) => {
   try {
-    const req = await axios.get(`http://localhost:4000/specs/${id}`);
+    const req = await axios.get(`/${id}`);
     return req.data.specs;
   } catch (error) {
     console.error(error);
@@ -22,7 +23,7 @@ const getSpecs = async (id) => {
 
 const addSpecs = async (specs) => {
   try {
-    const req = await axios.post("http://localhost:4000/specs/createspecs", specs);
+    const req = await axios.post("/createspecs", specs);
     return req.data.message;
   } catch (error) {
     return;
@@ -31,7 +32,7 @@ const addSpecs = async (specs) => {
 
 const deletedSpecs = async (id) => {
   try {
-    const req = await axios.delete(`http://localhost:4000/specs/${id}`);
+    const req = await axios.delete(`/${id}`);
     return req.data.message;
   } catch (error) {
     return;
@@ -40,7 +41,7 @@ const deletedSpecs = async (id) => {
 const editSpecs = async (id, specs) => {
   console.log(specs);
   try {
-    const req = await axios.patch(`http://localhost:4000/specs/${id}`, specs);
+    const req = await axios.patch(`/${id}`, specs);
     return req.data.message;
   } catch (error) {
     return;
