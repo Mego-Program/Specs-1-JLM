@@ -1,8 +1,7 @@
 import { Stack, Box } from "@mui/material";
 import PropTypes from "prop-types";
-import { NavLink } from "react-router-dom";
 
-export const SpecsBox = ({ editSpecs, specs, editStatus }) => {
+export const SpecsBox = ({ specs, editStatus, setOpenEdit }) => {
   return (
     <Stack
       sx={{
@@ -11,9 +10,9 @@ export const SpecsBox = ({ editSpecs, specs, editStatus }) => {
         padding: "10px 15px",
         border: "1px solid #F6C927",
         borderRadius: "7px",
-        background: specs.status ? "#1a1a1a" : "#121231",
+        background: specs.Situation === "Done" ? "#1a1a1a" : "#121231",
         marginLeft: "7px",
-        color: specs.status ? "#555" : "#eee",
+        color: specs.Situation === "Done" ? "#555" : "#eee",
         fontSize: ".835rem",
       }}
     >
@@ -42,7 +41,7 @@ export const SpecsBox = ({ editSpecs, specs, editStatus }) => {
           display: "grid",
           placeItems: "center",
           transition: "all 150ms",
-          color: specs.status ? "#" : "#eee",
+          color: specs.Situation === "Done" ? "#" : "#eee",
         }}
       >
         <Box
@@ -52,31 +51,34 @@ export const SpecsBox = ({ editSpecs, specs, editStatus }) => {
               color: "#a49b9b",
             },
           }}
-          onClick={() => editStatus(specs)}
+          onClick={() => editStatus(specs.id, specs)}
         >
-          {/* {specs.status ? "Done" : "in progress"} */}
-          {specs.status ? <span style={{ color: "#F6C927" }}>Done</span> : <span>In progress</span>}
+          {specs.Situation === "Done" ? (
+            <span style={{ color: "#F6C927" }}>Done</span>
+          ) : (
+            <span>In progress</span>
+          )}
         </Box>
       </Box>
       {/* EDIT */}
-      <NavLink to={`editor/${specs.id}`}>
-        <Box
-          sx={{
-            display: "grid",
-            placeItems: "center",
-            transition: "all 150ms",
 
-            cursor: "pointer",
-            height: "100%",
-            ":hover": {
-              color: specs.status ? "#a49b9b" : "#eee",
-            },
-          }}
-          onClick={editSpecs}
-        >
-          Edit
-        </Box>
-      </NavLink>
+      <Box
+        sx={{
+          display: "grid",
+          placeItems: "center",
+          transition: "all 150ms",
+
+          cursor: "pointer",
+          height: "100%",
+          ":hover": {
+            color: specs.Situation === "Done" ? "#a49b9b" : "#eee",
+          },
+        }}
+        onClick={() => setOpenEdit(specs.id)}
+      >
+        Edit
+      </Box>
+
       {/* USERS */}
       <Box
         sx={{

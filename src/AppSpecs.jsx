@@ -26,14 +26,14 @@ export const AppSpecs = (
         </ErrorBoundary>
       }
     />
-    <Route
+    {/* <Route
       path="editor/:id"
       element={
         <ErrorBoundary fallback={<h1>ErrorConection </h1>}>
           <Editor />
         </ErrorBoundary>
       }
-    />
+    /> */}
   </Route>
 );
 
