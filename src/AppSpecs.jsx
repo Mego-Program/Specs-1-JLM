@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Spec from "./component/specs/specs";
 import AddNewSpecs from "./component/specs/AddNewSpecs";
-import Editor from "./component/specs/Editor";
 import { Nav } from "./component/NavBar/Nav";
 
 import { Stack } from "@mui/material";
@@ -26,14 +25,6 @@ export const AppSpecs = (
         </ErrorBoundary>
       }
     />
-    {/* <Route
-      path="editor/:id"
-      element={
-        <ErrorBoundary fallback={<h1>ErrorConection </h1>}>
-          <Editor />
-        </ErrorBoundary>
-      }
-    /> */}
   </Route>
 );
 
@@ -49,7 +40,6 @@ export function App() {
       }}
     >
       <Nav />
-      {/* <RouterProvider router={router} /> */}
       <BrowserRouter>
         <Routes>
           <Route path="/*">{AppSpecs}</Route>
