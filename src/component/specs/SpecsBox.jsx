@@ -1,7 +1,7 @@
 import { Stack, Box } from "@mui/material";
 import PropTypes from "prop-types";
 
-export const SpecsBox = ({ specs, editStatus, setOpenEdit }) => {
+export const SpecsBox = ({ specs, editStatus, setOpenEdit, setOpenEdit2 }) => {
   return (
     <Stack
       sx={{
@@ -22,7 +22,12 @@ export const SpecsBox = ({ specs, editStatus, setOpenEdit }) => {
           padding: "0 5px",
         }}
       >
-        <Box sx={{ fontSize: "1.2rem", fontWeight: "bold" }}>{specs.title}</Box>
+        <Box sx={{ fontSize: "1.2rem", fontWeight: "bold" }} onClick={() => setOpenEdit2(specs.id)}>
+          {specs.title}
+        </Box>
+
+        {/* <Box sx={{ fontSize: "1.2rem", fontWeight: "bold" }}>{specs.title}</Box> */}
+
         <Box
           sx={{
             fontSize: ".6rem",

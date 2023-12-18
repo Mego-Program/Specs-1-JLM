@@ -47,7 +47,7 @@ export default function AddNewSpecs() {
     const createSpecs = await addSpecs(newSpecs);
 
     console.log(createSpecs);
-    // dispatch({ type: ADD_SPECS, payload: newSpecs });
+    dispatch({ type: ADD_SPECS, payload: newSpecs });
 
     console.log(createSpecs);
 
@@ -71,8 +71,6 @@ export default function AddNewSpecs() {
                 ind === step && "w-full border-[1px] border-[#F4C927] border-solid"
               }`}
             >
-              {/* {ind === step ? title : ind} */}
-              {/* {ind === step ? <span style={{ color: "#FFD700" }}>{ind}</span> : ind} */}
               {ind < step ? (
                 <span style={{ color: "#FFD700" }}>
                   <CheckCircleIcon />
