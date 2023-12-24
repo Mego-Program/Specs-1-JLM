@@ -23,73 +23,73 @@ import { fetchDataFromExternalAPI } from "../../../services/specs.services";
 //   getSpecses();
 // }, []);
 
-//  [
-//   { id: 1700675535447, date: "2023-11-22", title: "", content: "2", guitarPick: [1], name: "John" },
-//   {
-//     id: 1700675542842,
-//     date: "2023-11-22",
-//     title: "0000000000000",
-//     content: "1113",
-//     guitarPick: [1],
-//     name: "Jane",
-//   },
-//   { id: 1700676346323, date: "2023-11-22", title: "adsfg", content: "asdf", guitarPick: [4], name: "Doe" },
-//   {
-//     id: 1700734910418,
-//     date: "2023-11-23",
-//     title: "ssssss",
-//     content: "ddddd",
-//     guitarPick: [1],
-//     name: "Alice",
-//   },
-//   { id: 1700735026382, date: "2023-11-23", title: "wert", content: "rtyry", guitarPick: [1], name: "Bob" },
-//   {
-//     id: 1700747521173,
-//     date: "2023-11-23",
-//     title: "gayhsid",
-//     content: "asdfgh",
-//     guitarPick: [1],
-//     name: "John",
-//   },
-// ];
+const fakedata = [
+  { id: 1700675535447, date: "2023-11-22", title: "", content: "2", guitarPick: [1], name: "John" },
+  {
+    id: 1700675542842,
+    date: "2023-11-22",
+    title: "0000000000000",
+    content: "1113",
+    guitarPick: [1],
+    name: "Jane",
+  },
+  { id: 1700676346323, date: "2023-11-22", title: "adsfg", content: "asdf", guitarPick: [4], name: "Doe" },
+  {
+    id: 1700734910418,
+    date: "2023-11-23",
+    title: "ssssss",
+    content: "ddddd",
+    guitarPick: [1],
+    name: "Alice",
+  },
+  { id: 1700735026382, date: "2023-11-23", title: "wert", content: "rtyry", guitarPick: [1], name: "Bob" },
+  {
+    id: 1700747521173,
+    date: "2023-11-23",
+    title: "gayhsid",
+    content: "asdfgh",
+    guitarPick: [1],
+    name: "John",
+  },
+];
 
 export function SimpleDialog(props) {
   const { onClose, selectedValue, open } = props;
-  const [project, setProject] = useState({
-    loadding: true,
-    data: null,
-    error: false,
-  });
+  // const [project, setProject] = useState({
+  //   loadding: true,
+  //   data: null,
+  //   error: false,
+  // });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const specsData = await fetchDataFromExternalAPI();
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const specsData = await fetchDataFromExternalAPI();
 
-        if (Array.isArray(specsData)) {
-          setProject({
-            loadding: false,
-            error: false,
-            data: specsData,
-          });
-        } else {
-          setProject({
-            loadding: false,
-            error: "Dont find data",
-            data: null,
-          });
-        }
-      } catch (error) {
-        setProject({
-          loadding: false,
-          error: error.message,
-          data: null,
-        });
-      }
-    };
+  //       if (Array.isArray(specsData)) {
+  //         setProject({
+  //           loadding: false,
+  //           error: false,
+  //           data: specsData,
+  //         });
+  //       } else {
+  //         setProject({
+  //           loadding: false,
+  //           error: "Dont find data",
+  //           data: null,
+  //         });
+  //       }
+  //     } catch (error) {
+  //       setProject({
+  //         loadding: false,
+  //         error: error.message,
+  //         data: null,
+  //       });
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   const handleClose = () => {
     onClose(selectedValue);
@@ -99,13 +99,15 @@ export function SimpleDialog(props) {
     onClose(value);
   };
 
-  return project.loadding ? (
-    <h1> Loadding Project...</h1>
-  ) : (
+  return (
+    // project.loadding ? (
+    //   <h1> Loadding Project...</h1>
+    // ) : (
     <Dialog onClose={handleClose} open={open}>
       <DialogTitle>Choose a project</DialogTitle>
       <List sx={{ pt: 0 }}>
-        {project.data.map((item) => (
+        {/* {project.data.map((item) => ( */}
+        {fakedata.map((item) => (
           <ListItem disableGutters key={item.id}>
             <ListItemButton onClick={() => handleListItemClick(item.name)}>
               <ListItemAvatar>
