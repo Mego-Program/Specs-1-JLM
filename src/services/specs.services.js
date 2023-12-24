@@ -49,5 +49,14 @@ const editSpecs = async (id, specs) => {
     return;
   }
 };
+const fetchDataFromExternalAPI = async () => {
+  try {
+    const req = await axios.get("/project");
+    return req.data.specs;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
 
-export { getAllSpecs, getSpecs, addSpecs, deletedSpecs, editSpecs };
+export { getAllSpecs, getSpecs, addSpecs, deletedSpecs, editSpecs, fetchDataFromExternalAPI };
