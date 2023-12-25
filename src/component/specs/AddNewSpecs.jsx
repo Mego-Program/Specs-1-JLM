@@ -45,12 +45,6 @@ export default function AddNewSpecs() {
     e.preventDefault();
     const newSpecs = { Situation: "In progress", date: GetTodayDate(), ...newSpecsData };
     const createSpecs = await addSpecs(newSpecs);
-
-    console.log(createSpecs);
-    // dispatch({ type: ADD_SPECS, payload: newSpecs });
-
-    console.log(createSpecs);
-
     navigate("/");
   };
 
@@ -85,6 +79,7 @@ export default function AddNewSpecs() {
             </div>
           </li>
         ))}{" "}
+        <div className="absolute top-1/2 left-0 w-full h-[2px] bg-[#121231]"></div>
         {step > 1 && (
           <>
             <div className="absolute top-1/2 left-0 w-1/3 h-[2px] bg-[#F4C927]"></div>

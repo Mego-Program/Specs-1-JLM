@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Save, Reply } from "@mui/icons-material";
+import { Reply } from "@mui/icons-material";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
-import { editSpecs, getSpecs } from "../../services/specs.services";
-import { EDIT_SPECS } from "../../context/specs/specsTypes";
+import { getSpecs } from "../../services/specs.services";
 
 const iconStyle = {
   color: "#eee",
@@ -13,40 +12,31 @@ const iconStyle = {
   marginRight: "5px",
 };
 
-export default function Editor1({ setOpenEdit, id, dispatch }) {
-  console.log("id: ", id);
+export default function Editor2({ setOpenEdit2, id }) {
   const [load, setLoad] = useState(!1);
   const [specs, setSpecs] = useState([]);
-  const [formData, setFormData] = useState(null);
 
   useEffect(() => {
     const getTheSpecs = async () => {
-      const specs = await getSpecs(id);
-      if (specs?.length) setFormData(specs[0]);
+      try {
+        setLoad(!0);
+        const specsData = await getSpecs(id);
+        if (specsData?.length) {
+          setSpecs(specsData[0]);
+          setLoad(!1);
+        }
+      } catch (error) {
+        console.error("Error fetching specs:", error);
+      }
     };
 
     getTheSpecs();
   }, []);
 
-  const handleChange = (field, value) => {
-    setFormData({ ...formData, [field]: value });
-  };
-
-  const handleSaveAll = async () => {
-    console.log("All data saved");
-    setLoad(!0);
-
-    const updeteSpecs = await editSpecs(formData.id, formData);
-
-    dispatch({ type: EDIT_SPECS, payload: formData });
-
-    setOpenEdit(!1);
-  };
-
   const closeWindow = () => {
-    if (!load) setOpenEdit();
+    if (!load) setOpenEdit2(false);
   };
-  console.log(formData);
+
   return (
     <div className="fixed top-0 left-0 w-[100vw] h-[100vh] bg-[#00000026E] z-50">
       <div className="w-[100%] h-[100%] cursor-pointer" onClick={closeWindow}></div>
@@ -54,12 +44,13 @@ export default function Editor1({ setOpenEdit, id, dispatch }) {
         {load ? (
           <h1 className="text-white mt-[20px]">LOADDING...</h1>
         ) : (
-          formData && (
+          specs && (
             <div className="mt-4 text-white">
-              <h2 className="text-2xl font-bold text-[#eee] pb-3">Editor</h2>
+              <h2 className="text-2xl font-bold text-[#eee] pb-3">information</h2>
               <ul className="list-disc list-inside mt-2 bg-[#121231]">
-                {Object.keys(formData).map(
+                {Object.keys(specs).map(
                   (field, index) =>
+                    // אם השדה הוא id או תאריך או guitarPick, אל תציג אותו במצב עריכה
                     !["id", "date", "guitarPick", "_id", "__v", "selectedRecord"].includes(field) && (
                       <li key={index} className="list-none p-4 relative bg-[#121231] rounded-xl">
                         <h4 className="font-bold pb-2">{field}: </h4>
@@ -93,53 +84,40 @@ export default function Editor1({ setOpenEdit, id, dispatch }) {
                                   },
                                 },
                               }}
-                              defaultValue={dayjs(formData.Deadline)}
-                              onChange={(value) => handleChange("Deadline", value.format("DD/MM/YYYY"))}
+                              defaultValue={dayjs(specs.Deadline)}
+                              readOnly
                             />
                           </LocalizationProvider>
                         ) : (
                           <input
                             type="text"
                             className="bg-[#21213E] text-white px-4 py-[15px] rounded outline-none w-[100%] "
-                            defaultValue={formData[field] || formData[field]}
-                            autoFocus={index === 2}
-                            onChange={(e) => handleChange(field, e.target.value)}
+                            defaultValue={specs[field]}
+                            readOnly
                           />
                         )}
                       </li>
                     )
                 )}
-                {formData.guitarPick.map((value, index) => (
-                  <div key={index} className="mb-2 mx-4 mt-3">
-                    We will:{" "}
-                    <input
-                      type="text"
-                      className="bg-[#21213E] text-white px-2 py-1 ml-[5px] rounded-xs outline-none mr-2 w-[96%]"
-                      defaultValue={value.we_will}
-                      onChange={(e) =>
-                        handleChange(
-                          "guitarPick",
-                          formData.guitarPick.map((g) =>
-                            g.ind == value.ind ? { ...g, we_will: e.target.value } : g
-                          )
-                        )
-                      }
-                    />
-                  </div>
-                ))}
+                {specs.guitarPick &&
+                  specs.guitarPick.map((value, index) => (
+                    <div key={index} className="mb-2 mx-4 mt-3">
+                      We will:{" "}
+                      <input
+                        type="text"
+                        className="bg-[#21213E] text-white px-2 py-1 ml-[5px] rounded-xs outline-none mr-2 w-[96%]"
+                        defaultValue={value.we_will}
+                        readOnly
+                      />
+                    </div>
+                  ))}
               </ul>
-              <div className="flex justify-between mt-[50px] px-6">
+              <div className="flex justify-end mt-[50px] px-6">
                 <button
                   onClick={closeWindow}
                   className="flex items-center justify-center pt-1 pb-1 bg-[#21213E] select-none text-white rounded-md text-center w-24 text-base font-bold cursor-pointer hover:opacity-70"
                 >
                   <Reply style={iconStyle} /> Close
-                </button>
-                <button
-                  onClick={handleSaveAll}
-                  className="flex items-center justify-center pt-1 pb-1   bg-[#21213E] select-none text-white rounded-md text-center w-24 text-base font-bold cursor-pointer hover:opacity-70"
-                >
-                  <Save style={iconStyle} /> Save
                 </button>
               </div>
             </div>

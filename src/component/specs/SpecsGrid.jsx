@@ -3,7 +3,7 @@ import { Stack, Box } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 import PropTypes from "prop-types";
 
-export function SpecsGrid({ specs, deleteSpecs, editStatus, setOpenEdit }) {
+export function SpecsGrid({ specs, deleteSpecs, editStatus, setOpenEdit, setOpenEdit2 }) {
   return (
     <Stack
       sx={{
@@ -45,7 +45,7 @@ export function SpecsGrid({ specs, deleteSpecs, editStatus, setOpenEdit }) {
       </Box>
 
       {/* DATA */}
-      <SpecsBox {...{ specs, setOpenEdit, editStatus }} />
+      <SpecsBox {...{ specs, setOpenEdit, editStatus, setOpenEdit2 }} />
       {/* DELETE */}
       <Box
         sx={{

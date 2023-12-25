@@ -1,6 +1,8 @@
 import axios from "axios";
 
 axios.defaults.baseURL = "https://specs-1-jlm-server-tzvis-projects.vercel.app/specs";
+// axios.defaults.baseURL = "http://localhost:4000/specs";
+
 const getAllSpecs = async () => {
   try {
     const req = await axios.get("/");
@@ -47,5 +49,14 @@ const editSpecs = async (id, specs) => {
     return;
   }
 };
+const fetchDataFromExternalAPI = async () => {
+  try {
+    const req = await axios.get("/project");
+    return req.data.specs;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
 
-export { getAllSpecs, getSpecs, addSpecs, deletedSpecs, editSpecs };
+export { getAllSpecs, getSpecs, addSpecs, deletedSpecs, editSpecs, fetchDataFromExternalAPI };
