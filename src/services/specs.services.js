@@ -51,8 +51,8 @@ const editSpecs = async (id, specs) => {
 };
 const fetchDataFromExternalAPI = async () => {
   try {
-    const req = await axios.get("/project");
-    return req.data.specs;
+    const req = await axios.post("https://jlm-projects-server-1.vercel.app/projects/get_all_data");
+    return req.data;
   } catch (error) {
     console.error(error);
     return [];

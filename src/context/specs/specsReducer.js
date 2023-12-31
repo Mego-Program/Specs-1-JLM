@@ -10,7 +10,6 @@ export const INITIAL_STATE_SPECS = {
 export const specsReducer = (state, { type, payload }) => {
   switch (type) {
     case ADD_SPECS:
-      // save the new specs in local storage
       return { ...state, specs: [...state.specs, payload] };
 
     case EDIT_SPECS: {

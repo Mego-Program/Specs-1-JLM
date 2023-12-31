@@ -50,7 +50,6 @@ export default function Editor2({ setOpenEdit2, id }) {
               <ul className="list-disc list-inside mt-2 bg-[#121231]">
                 {Object.keys(specs).map(
                   (field, index) =>
-                    // אם השדה הוא id או תאריך או guitarPick, אל תציג אותו במצב עריכה
                     !["id", "date", "guitarPick", "_id", "__v", "selectedRecord"].includes(field) && (
                       <li key={index} className="list-none p-4 relative bg-[#121231] rounded-xl">
                         <h4 className="font-bold pb-2">{field}: </h4>
@@ -91,7 +90,7 @@ export default function Editor2({ setOpenEdit2, id }) {
                         ) : (
                           <input
                             type="text"
-                            className="bg-[#21213E] text-white px-4 py-[15px] rounded outline-none w-[100%] "
+                            className="bg-[#121231] text-white px-4 py-[15px] rounded outline-none w-[100%] "
                             defaultValue={specs[field]}
                             readOnly
                           />
@@ -105,7 +104,7 @@ export default function Editor2({ setOpenEdit2, id }) {
                       We will:{" "}
                       <input
                         type="text"
-                        className="bg-[#21213E] text-white px-2 py-1 ml-[5px] rounded-xs outline-none mr-2 w-[96%]"
+                        className="bg-[#121231] text-white px-2 py-1 ml-[5px] rounded-xs outline-none mr-2 w-[96%]"
                         defaultValue={value.we_will}
                         readOnly
                       />
